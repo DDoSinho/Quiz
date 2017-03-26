@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 using Dal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Dal.Model;
+using Microsoft.EntityFrameworkCore;
+using Dal.Model.Identity;
 
 namespace Web
 {
@@ -38,15 +41,14 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddDbContext<LoginDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QuizDataBase;Trusted_Connection=True;"));
 
-          /*  services.AddDbContext<IdentityDbContext>();
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                    .AddEntityFrameworkStores<IdentityDbContext>()
-                    .AddDefaultTokenProviders();*/
+            services.AddIdentity<QuizUser, IdentityRole>().AddEntityFrameworkStores<LoginDbContext>();
 
             services.AddScoped<QuizDbContext>();
             services.AddScoped<QuestionManager>();
+
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -58,6 +60,8 @@ namespace Web
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
+
+            app.UseIdentity();
 
             app.UseStaticFiles();
 

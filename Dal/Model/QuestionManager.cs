@@ -14,7 +14,6 @@ namespace Dal
         public QuestionManager(QuizDbContext context)
         {
             Context = context;
-            //version control
         }
 
         public void AddQuestion(Question question, Theme theme)
@@ -114,28 +113,7 @@ namespace Dal
             var correct = answers.Count(a => a);
             var all = answers.Count;
 
-            List<int> sessionIds = Context.Sessions
-                                   .Select(s => s.SessionId)
-                                   .ToList();
-
-            double CountCorrect = 0;
-            double CountRecords = 0;
-
-            foreach (var sessionid in sessionIds)
-            {
-                List<GivedAnswer> givedAnswerList = Context.GivedAnswers
-                                                    .Where(a => a.QuestionId == questionId)
-                                                    .Select(a => a).ToList();
-
-                if (IsItGoodAnswers(givedAnswerList))
-                {
-                    CountCorrect++;
-                }
-
-                CountRecords++;
-            }
-
-            return 100 - Math.Floor((CountCorrect / CountRecords) * 100);
+            return 100 - Math.Floor(((double)correct / (double)all) * 100);
         }
 
     }

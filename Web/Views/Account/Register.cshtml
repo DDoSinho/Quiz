@@ -1,0 +1,38 @@
+﻿@model Dal.Model.Identity.RegisterViewModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+
+<form asp-controller="Account" asp-action="Register" method="post">
+    <h4>Register a new account</h4>
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Email"></label>
+        <div>
+            <input asp-for="Email">
+            <span asp-validation-for="Email"></span>
+        </div>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <div>
+            <input asp-for="Password"/>
+            <span asp-validation-for="Password"></span>
+        </div>
+    </div>
+    <div>
+        <label asp-for="ConfirmPassword"></label>
+        <div>
+            <input asp-for="ConfirmPassword"/>
+            <span asp-validation-for="ConfirmPassword"></span>
+        </div>
+    </div>
+    <div>
+        <div>
+            <button type="submit">Register</button>
+        </div>
+    </div>
+
+</form>
