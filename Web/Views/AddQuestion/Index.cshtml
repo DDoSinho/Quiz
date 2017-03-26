@@ -1,0 +1,23 @@
+﻿@using Dal;
+@model List<Theme>
+
+<form method="post" action="AddQuestion/SaveQuestion">
+    Question:
+    <input type="text" name="Text" placeholder="Question text" required/>
+
+    <p>
+        Theme:
+        <input list="browsers" name="Name" placeholder="Write or choose a theme" required>
+    </p>
+
+    <datalist id="browsers">
+        @{
+            foreach (var item in Model)
+            {
+                <option value="@item.Name" />
+            }
+        }
+    </datalist>
+
+    <p><button>Add Question</button></p>
+</form>

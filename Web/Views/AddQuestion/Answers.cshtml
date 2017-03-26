@@ -1,0 +1,27 @@
+﻿@using Dal;
+@model Question
+
+<!DOCTYPE html>
+<html>
+<body>
+
+    @{
+        <h1>@Model.Text</h1>
+    }
+
+    <form id="form" method="post" action="SaveAnswers">
+        <div id="firstanswer"> 
+            <input type="text" placeholder="Answer text" name="Answer[0].Text" required/>
+            <input type="checkbox" value="true" name="Answer[0].IsGoodAnswer" style="margin-left:0; margin-right:-1px" />
+            <button type="button" id="remove">Remove</button>
+            <input type="text" value="@Model.QuestionId" name="Answer[0].QuestionId" hidden="hidden" id="questionid"/>
+        </div>
+        <p><button type="button" id="add">Add</button></p>
+        <p><button type="submit">Submit</button></p>
+    </form>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/answer2.js?@(Web.Startup.TimeStamp)"></script>
+</body>
+</html>
+    

@@ -1,0 +1,15 @@
+﻿@using Dal;
+@model List<Theme>
+<form method="post" action="Game/InitGame" id="form">
+
+    Choose a Theme:
+    <select name="Name">
+        @{
+            foreach (var item in Model)
+            {
+                <option value="@item.Name">@item.Name</option>
+            }
+        }
+    </select>
+    <p><button type="submit">Start Game</button></p>
+</form>
