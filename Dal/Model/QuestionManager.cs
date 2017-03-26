@@ -14,6 +14,7 @@ namespace Dal
         public QuestionManager(QuizDbContext context)
         {
             Context = context;
+            //version control
         }
 
         public void AddQuestion(Question question, Theme theme)
