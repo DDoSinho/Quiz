@@ -1,5 +1,17 @@
-﻿<h1>Menu</h1>
-<a href="/Game">Play Game</a>
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <p>User @User.Identity.Name is signed in.</p>
+} 
+
+<h1>Menu</h1>
 <p>
-    <a href="/AddQuestion">Add Questions</a>
+    <a href="/Game/ChooseTheme">Play Game</a>
+</p>
+<p>
+    <a href="/AddQuestion/Index">Add Questions</a>
+</p>
+<p>
+    <form method="post" action="/Account/Logout">
+        <button type="submit">Logout</button>
+    </form>
 </p>

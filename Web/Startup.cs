@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Dal;
@@ -41,9 +37,9 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<LoginDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QuizDataBase;Trusted_Connection=True;"));
+            services.AddDbContext<QuizDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QuizDataBase;Trusted_Connection=True;"));
 
-            services.AddIdentity<QuizUser, IdentityRole>().AddEntityFrameworkStores<LoginDbContext>();
+            services.AddIdentity<QuizUser, IdentityRole>().AddEntityFrameworkStores<QuizDbContext>();
 
             services.AddScoped<QuizDbContext>();
             services.AddScoped<QuestionManager>();
@@ -69,7 +65,7 @@ namespace Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

@@ -34,11 +34,13 @@ namespace Web.Controllers
             {
                 QuizUser user = new QuizUser { UserName = model.Email, Email = model.Email };
                 IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+
                 if(result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user,false);  //maradjunk logolva a bool paraméter
-                    return RedirectToAction("Index", "Home");
+                    //await _signInManager.SignInAsync(user,false);  //maradjunk logolva a bool paraméter
+                    return RedirectToAction("Login", "Account");
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -72,6 +74,13 @@ namespace Web.Controllers
                      
             }
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Redirect("~/");
         }
 
         [Authorize]

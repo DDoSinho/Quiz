@@ -3,11 +3,8 @@ using Dal.Entities;
 using Dal.Model;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
@@ -22,7 +19,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult ChooseTheme()
         {
             return View(_questionManager.GetThemes());
         }

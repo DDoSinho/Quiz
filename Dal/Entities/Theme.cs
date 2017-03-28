@@ -10,7 +10,7 @@ namespace Dal
     {
         public Theme()
         {
-            this.Questions = new HashSet<Question>();
+            this.Questions = new List<Question>();
         }
 
         public int ThemeId { get; set; }

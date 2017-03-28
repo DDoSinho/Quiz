@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Dal.Entities;
+using Dal.Model;
 
 namespace Dal
 {

@@ -5,6 +5,15 @@
     Layout = "_Layout";
 }
 
+@if (User.Identity.IsAuthenticated)
+{
+    <p>User @User.Identity.Name is signed in.</p>
+}
+else
+{
+    <p>Senki sincs bejelentkezve</p>
+}
+
 <form asp-controller="Account" asp-action="Login" method="post">
     <h4>Login</h4>
     <div asp-validation-summary="All"></div>
@@ -28,5 +37,6 @@
             <button type="submit">Login</button>
         </div>
     </div>
-
 </form>
+<p></p>
+<a href="/Account/Register">Register</a>

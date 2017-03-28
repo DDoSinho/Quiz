@@ -1,13 +1,24 @@
 ﻿using Dal.Entities;
+using Dal.Model.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dal
+namespace Dal.Model
 {
-    public class QuizDbContext : DbContext
+    public class QuizDbContext : IdentityDbContext<QuizUser>
     {
+        public QuizDbContext()
+        {
+        }
+
+        public QuizDbContext(DbContextOptions<QuizDbContext> options): base(options)
+        {
+
+        }
+
         public DbSet<Question> Questions { get; set; }
 
         public DbSet<Theme> Themes { get; set; }

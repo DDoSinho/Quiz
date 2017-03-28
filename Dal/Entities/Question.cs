@@ -1,4 +1,5 @@
 ﻿using Dal.Entities;
+using Dal.Model.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,7 +12,7 @@ namespace Dal
     {
         public Question()
         {
-            this.Answers = new HashSet<Answer>();
+            this.Answers = new List<Answer>();
             this.GivedAnswers = new List<GivedAnswer>();
         }
 

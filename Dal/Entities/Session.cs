@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dal.Model.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -17,5 +18,6 @@ namespace Dal.Entities
 
         public ICollection<GivedAnswer> GivedAnswers { get; set; }
 
+        public virtual QuizUser QuizUser { get; set; }
     }
 }
