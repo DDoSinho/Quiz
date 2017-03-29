@@ -1,6 +1,7 @@
 ﻿using Dal;
 using Dal.Entities;
 using Dal.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Text;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class GameController : Controller
     {
         private QuestionManager _questionManager;

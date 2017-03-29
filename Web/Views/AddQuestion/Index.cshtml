@@ -2,8 +2,20 @@
 @model List<Theme>
 
 <form method="post" action="/AddQuestion/SaveQuestion">
+    Quiz:
+    <input list="browsers" name="Name" placeholder="Write or choose a theme" required>
+
+    <datalist id="browsers">
+        @{
+            foreach (var item in Model)
+            {
+                <option value="@item.Name" />
+            }
+        }
+    </datalist>
+
     Question:
-    <input type="text" name="Text" placeholder="Question text" required/>
+    <input type="text" name="Text" placeholder="Question text" required />
 
     <p>
         Theme:

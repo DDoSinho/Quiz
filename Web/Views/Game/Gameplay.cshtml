@@ -1,34 +1,38 @@
 ﻿@using Dal.Model;
 @model GameplayViewModel
 
-<form method="post" action="/Game/Gameplay">
-    @{
-        int id = 0;
+<body>
+    <form method="post" action="/Game/Gameplay">
+        @{
+            int id = 0;
 
-        <h1>@Model.Question.Text</h1>
-        foreach (var item in Model.Question.Answers)
-        {
-            <p>
-                <input type="checkbox" value="true" id="@id" name="givedAnswerList[@id].Correct" />
-                <label for="@id">@item.Text</label>
-            </p>
-            <input type="text" value="@Model.Question.QuestionId" name="givedAnswerList[@id].QuestionId" hidden />
-            <input type="text" value="@item.AnswerId" name="givedAnswerList[@id].AnswerId" hidden />
-            <input type="text" value="@Model.SessionId" name="givedAnswerList[@id].SessionId" hidden />
+            <h1>@Model.Question.Text</h1>
+            foreach (var item in Model.Question.Answers)
+            {
+                <p>
+                    <input type="checkbox" class="checkbox" value="true" id="@id" name="givedAnswerList[@id].Correct" />
+                    <label for="@id">@item.Text</label>
+                </p>
+                <input type="text" value="@Model.Question.QuestionId" name="givedAnswerList[@id].QuestionId" hidden />
+                <input type="text" value="@item.AnswerId" name="givedAnswerList[@id].AnswerId" hidden />
+                <input type="text" value="@Model.SessionId" name="givedAnswerList[@id].SessionId" hidden />
 
-            id++;
+                id++;
+            }
+
+            <input type="text" value="@Model.Question.QuestionId" name="vmodel.QuestionId" hidden />
+            <input type="text" value="@Model.Ids" name="vmodel.Ids" hidden />
+            <input type="text" value="@Model.SessionId" name="vmodel.SessionId" hidden />
+            <input type="text" value="@Model.Points" name="vmodel.Points" hidden />
+
         }
+        <div id="nextquestiondiv">
+            <button id="nextquestionbutton" type="submit">Next question</button>
+        </div>
+        <h1>Points: @Model.Points</h1>
+    </form>
 
-        <input type="text" value="@Model.Question.QuestionId" name="vmodel.QuestionId" hidden />
-        <input type="text" value="@Model.Ids" name="vmodel.Ids" hidden />
-        <input type="text" value="@Model.SessionId" name="vmodel.SessionId" hidden />
-        <input type="text" value="@Model.Points" name="vmodel.Points" hidden />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/question.js"></script>
 
-    }
-
-
-
-    <button type="submit">Next question</button>
-
-    <h1>Points: @Model.Points</h1>
-</form>
+</body>

@@ -1,8 +1,8 @@
 ﻿[
   {
-    "outputFileName": "wwwroot/js/answer2.min.js",
+    "outputFileName": "wwwroot/js/answer.min.js",
     "inputFiles": [
-      "wwwroot/js/answer2.js"
+      "wwwroot/js/answer.js"
     ],
     "minify": {
       "enabled": true,

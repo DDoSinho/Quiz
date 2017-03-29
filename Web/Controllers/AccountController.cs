@@ -37,14 +37,12 @@ namespace Web.Controllers
 
                 if(result.Succeeded)
                 {
-                    //await _signInManager.SignInAsync(user,false);  //maradjunk logolva a bool paraméter
                     return RedirectToAction("Login", "Account");
                 }
 
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
-
                 }
             }
 
@@ -54,6 +52,10 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -76,17 +78,12 @@ namespace Web.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return Redirect("~/");
-        }
-
-        [Authorize]
-        public string Check()
-        {
-            return "Login";
         }
 
         public IActionResult Index()

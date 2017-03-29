@@ -39,7 +39,11 @@ namespace Web
         {
             services.AddDbContext<QuizDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QuizDataBase;Trusted_Connection=True;"));
 
-            services.AddIdentity<QuizUser, IdentityRole>().AddEntityFrameworkStores<QuizDbContext>();
+            services.AddIdentity<QuizUser, IdentityRole>(options =>
+            {
+                options.Cookies.ApplicationCookie.LoginPath = "/Account/Login";
+            })
+            .AddEntityFrameworkStores<QuizDbContext>();
 
             services.AddScoped<QuizDbContext>();
             services.AddScoped<QuestionManager>();
@@ -60,6 +64,8 @@ namespace Web
             app.UseIdentity();
 
             app.UseStaticFiles();
+
+            app.UseStatusCodePagesWithRedirects("/Account/Login");
 
             app.UseMvc(routes =>
             {
