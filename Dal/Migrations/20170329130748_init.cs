@@ -10,16 +10,16 @@ namespace Web.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Quiz",
+                name: "Quizs",
                 columns: table => new
                 {
                     QuizID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Quiz", x => x.QuizID);
+                    table.PrimaryKey("PK_Quizs", x => x.QuizID);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,9 +101,9 @@ namespace Web.Migrations
                 {
                     table.PrimaryKey("PK_Sessions", x => x.SessionId);
                     table.ForeignKey(
-                        name: "FK_Sessions_Quiz_QuizID",
+                        name: "FK_Sessions_Quizs_QuizID",
                         column: x => x.QuizID,
-                        principalTable: "Quiz",
+                        principalTable: "Quizs",
                         principalColumn: "QuizID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -242,7 +242,7 @@ namespace Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "QuizQuestion",
+                name: "QuizQuestions",
                 columns: table => new
                 {
                     QuizQuestionId = table.Column<int>(nullable: false)
@@ -252,17 +252,17 @@ namespace Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuizQuestion", x => x.QuizQuestionId);
+                    table.PrimaryKey("PK_QuizQuestions", x => x.QuizQuestionId);
                     table.ForeignKey(
-                        name: "FK_QuizQuestion_Questions_QuestionId",
+                        name: "FK_QuizQuestions_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
                         principalColumn: "QuestionId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_QuizQuestion_Quiz_QuizID",
+                        name: "FK_QuizQuestions_Quizs_QuizID",
                         column: x => x.QuizID,
-                        principalTable: "Quiz",
+                        principalTable: "Quizs",
                         principalColumn: "QuizID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -374,13 +374,13 @@ namespace Web.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QuizQuestion_QuestionId",
-                table: "QuizQuestion",
+                name: "IX_QuizQuestions_QuestionId",
+                table: "QuizQuestions",
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QuizQuestion_QuizID",
-                table: "QuizQuestion",
+                name: "IX_QuizQuestions_QuizID",
+                table: "QuizQuestions",
                 column: "QuizID");
         }
 
@@ -405,7 +405,7 @@ namespace Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "QuizQuestion");
+                name: "QuizQuestions");
 
             migrationBuilder.DropTable(
                 name: "Answers");
@@ -420,7 +420,7 @@ namespace Web.Migrations
                 name: "Questions");
 
             migrationBuilder.DropTable(
-                name: "Quiz");
+                name: "Quizs");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

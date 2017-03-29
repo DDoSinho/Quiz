@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Web.Entities;
 
 namespace Dal.Model
 {
@@ -29,6 +30,9 @@ namespace Dal.Model
 
         public DbSet<Session> Sessions { get; set; }
 
+        public DbSet<Quiz> Quizs { get; set; }
+
+        public DbSet<QuizQuestion> QuizQuestions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

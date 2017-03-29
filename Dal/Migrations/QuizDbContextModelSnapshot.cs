@@ -63,11 +63,11 @@ namespace Web.Migrations
                     b.Property<int>("QuizID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Name");
+                    b.Property<string>("Name");
 
                     b.HasKey("QuizID");
 
-                    b.ToTable("Quiz");
+                    b.ToTable("Quizs");
                 });
 
             modelBuilder.Entity("Dal.Entities.Session", b =>
@@ -288,7 +288,7 @@ namespace Web.Migrations
 
                     b.HasIndex("QuizID");
 
-                    b.ToTable("QuizQuestion");
+                    b.ToTable("QuizQuestions");
                 });
 
             modelBuilder.Entity("Dal.Answer", b =>

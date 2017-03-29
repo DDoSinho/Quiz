@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Dal.Entities;
 using Dal.Model;
+using Web.Entities;
 
 namespace Dal
 {
@@ -17,21 +18,42 @@ namespace Dal
             Context = context;
         }
 
-        public void AddQuestion(Question question, Theme theme)
+        public void AddQuestion(Question question, Theme theme, Quiz quiz)
         {
+            QuizQuestion quizquestion = new QuizQuestion();
+
+            var QuizInDb = Context.Quizs
+                           .Where(q => q.Name == quiz.Name)
+                           .FirstOrDefault();
+
+            if(QuizInDb == null)
+            {
+                Context.Add(quiz);
+                quizquestion.Quiz = quiz;
+            }
+            else
+            {
+                quizquestion.Quiz = QuizInDb;
+            }
+
             var ThemeInDb = Context.Themes
                                .Where(t => t.Name == theme.Name)
                                .FirstOrDefault();
 
-            if (ThemeInDb == null)
+            if(ThemeInDb == null)
             {
                 Context.Add(theme);
                 theme.Questions.Add(question);
-                Context.SaveChanges();
-                return;
+            }
+            else
+            {
+                ThemeInDb.Questions.Add(question);
             }
 
-            ThemeInDb.Questions.Add(question);
+            quizquestion.Question = question;
+
+            Context.Add(quizquestion);
+
             Context.SaveChanges();
         }
 
@@ -53,12 +75,29 @@ namespace Dal
             Context.SaveChanges();
         }
 
+        public void AddQuiz(Quiz quiz)
+        {
+            Context.Add(quiz);
+            Context.SaveChanges();
+        }
+
+        public void AddQuizQuestion(QuizQuestion quizquestion)
+        {
+            Context.Add(quizquestion);
+            Context.SaveChanges();
+        }
+
         public List<Theme> GetThemes()
         {
             var query = from q in Context.Themes
                         select q;
 
             return query.ToList();
+        }
+
+        public List<Quiz> GetQuizs()
+        {
+            return Context.Quizs.Select(q => q).ToList();
         }
 
         public List<int> GetQuestionsIdByThemeName(string themeName)
@@ -113,6 +152,9 @@ namespace Dal
 
             var correct = answers.Count(a => a);
             var all = answers.Count;
+
+            if (correct == all)
+                return 1;
 
             return 100 - Math.Floor(((double)correct / (double)all) * 100);
         }

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Dal;
 using Microsoft.AspNetCore.Authorization;
+using Dal.Model;
+using Dal.Entities;
 
 namespace Web.Controllers
 {
@@ -20,18 +22,24 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
-            return View(_questionManager.GetThemes());
+            AddQuestionViewModel model = new AddQuestionViewModel()
+            {
+                Themes = _questionManager.GetThemes(),
+                Quizs = _questionManager.GetQuizs()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult SaveQuestion([FromForm] Question question, [FromForm] Theme theme)
+        public IActionResult SaveQuestion([FromForm] Question question, [FromForm] Theme theme, [FromForm] Quiz quiz)
         {
-            if (question == null || theme == null)
+            if (quiz == null || question == null || theme == null)
             {
                 BadRequest();
             }
 
-            _questionManager.AddQuestion(question, theme);
+            _questionManager.AddQuestion(question, theme, quiz);
 
             return View("Answers", question);
         }

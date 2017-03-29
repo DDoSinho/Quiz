@@ -1,30 +1,32 @@
-﻿@using Dal;
-@model List<Theme>
+﻿@using Dal.Model;
+@model AddQuestionViewModel
 
 <form method="post" action="/AddQuestion/SaveQuestion">
     Quiz:
-    <input list="browsers" name="Name" placeholder="Write or choose a theme" required>
+    <input list="quizlist" name="quiz.Name" placeholder="Write or choose a name of quiz" required>
 
-    <datalist id="browsers">
+    <datalist id="quizlist">
         @{
-            foreach (var item in Model)
+            foreach (var item in Model.Quizs)
             {
                 <option value="@item.Name" />
             }
         }
     </datalist>
 
-    Question:
-    <input type="text" name="Text" placeholder="Question text" required />
+    <p>
+        Question:
+        <input type="text" name="question.Text" placeholder="Question text" required />
+    </p>
 
     <p>
         Theme:
-        <input list="browsers" name="Name" placeholder="Write or choose a theme" required>
+        <input list="themelist" name="theme.Name" placeholder="Write or choose a theme" required>
     </p>
 
-    <datalist id="browsers">
+    <datalist id="themelist">
         @{
-            foreach (var item in Model)
+            foreach (var item in Model.Themes)
             {
                 <option value="@item.Name" />
             }
