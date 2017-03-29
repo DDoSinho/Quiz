@@ -146,17 +146,10 @@ namespace Dal
 
         public double GetPoint(int questionId)
         {
-            var answers = Context.GivedAnswers
-                .Where(g => g.QuestionId == questionId)
-                .Select(a => a.Answer.IsGoodAnswer).ToList();
+            //TODO: calculate the number of good answers and the number of all answers
+            //return 100-(good_ans/all_ans)*100
 
-            var correct = answers.Count(a => a);
-            var all = answers.Count;
-
-            if (correct == all)
-                return 1;
-
-            return 100 - Math.Floor(((double)correct / (double)all) * 100);
+            return 1.0;
         }
 
     }

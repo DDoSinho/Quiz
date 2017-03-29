@@ -1,11 +1,14 @@
 ﻿using Dal;
 using Dal.Entities;
 using Dal.Model;
+using Dal.Model.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
@@ -13,10 +16,12 @@ namespace Web.Controllers
     public class GameController : Controller
     {
         private QuestionManager _questionManager;
+        private UserManager<QuizUser> _userManager;
 
-        public GameController(QuestionManager questionManager)
+        public GameController(QuestionManager questionManager, UserManager<QuizUser> userManager)
         {
             _questionManager = questionManager;
+            _userManager = userManager;
 
         }
 
@@ -27,9 +32,9 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult InitGame([FromForm] Theme theme)
+        public async Task<IActionResult> InitGame([FromForm] Theme theme)
         {
-            Session session = new Session();
+            Session session = new Session() { QuizUser= await _userManager.GetUserAsync(User)};
             _questionManager.AddSession(session);
 
             List<int> questionIds = _questionManager.GetQuestionsIdByThemeName(theme.Name);

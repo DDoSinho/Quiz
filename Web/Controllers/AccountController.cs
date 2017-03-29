@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Dal.Model.Identity;
 using Dal.Model;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Web.Controllers
 {
@@ -37,6 +38,9 @@ namespace Web.Controllers
 
                 if(result.Succeeded)
                 {
+                    if(model.Administrator)
+                        await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(ClaimTypes.Role, "Administrator"));
+
                     return RedirectToAction("Login", "Account");
                 }
 
@@ -87,6 +91,13 @@ namespace Web.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles ="Administrator")]
+        public IActionResult Iamadmin()
         {
             return View();
         }
