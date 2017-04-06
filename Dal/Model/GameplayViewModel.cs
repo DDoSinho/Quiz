@@ -15,6 +15,6 @@ namespace Dal.Model
 
         public int QuestionId { get; set; }
 
-        public double Points { get; set; }
+        public int Points { get; set; }
     }
 }

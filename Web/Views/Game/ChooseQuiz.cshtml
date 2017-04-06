@@ -1,8 +1,8 @@
-﻿@using Dal;
-@model List<Theme>
+﻿@using Dal.Entities;
+@model List<Quiz>
 <form method="post" action="/Game/InitGame" id="form">
 
-    Choose a Theme:
+    Choose a Quiz:
     <select name="Name">
         @{
             foreach (var item in Model)

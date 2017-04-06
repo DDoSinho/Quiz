@@ -96,7 +96,6 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="Administrator")]
         public IActionResult Iamadmin()
         {
             return View();

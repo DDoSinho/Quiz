@@ -11,9 +11,7 @@ namespace Dal.Model
 {
     public class QuizDbContext : IdentityDbContext<QuizUser>
     {
-        public QuizDbContext()
-        {
-        }
+        public QuizDbContext(){}
 
         public QuizDbContext(DbContextOptions<QuizDbContext> options): base(options)
         {

@@ -4,9 +4,12 @@
 <body>
     <form method="post" action="/Game/Gameplay">
         @{
+            <h1>Quiz: @ViewData["quiz"]</h1>
+            <h2>Theme: @ViewData["theme"]</h2>
+
             int id = 0;
 
-            <h1>@Model.Question.Text</h1>
+            <h3>@Model.Question.Text</h3>
             foreach (var item in Model.Question.Answers)
             {
                 <p>
@@ -20,11 +23,7 @@
                 id++;
             }
 
-            <input type="text" value="@Model.Question.QuestionId" name="vmodel.QuestionId" hidden />
-            <input type="text" value="@Model.Ids" name="vmodel.Ids" hidden />
-            <input type="text" value="@Model.SessionId" name="vmodel.SessionId" hidden />
-            <input type="text" value="@Model.Points" name="vmodel.Points" hidden />
-
+            <input type="text" value="@Model.Question.QuestionId" name="questionId" hidden />
         }
         <div id="nextquestiondiv">
             <button id="nextquestionbutton" type="submit">Next question</button>

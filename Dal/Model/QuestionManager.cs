@@ -26,7 +26,7 @@ namespace Dal
                            .Where(q => q.Name == quiz.Name)
                            .FirstOrDefault();
 
-            if(QuizInDb == null)
+            if (QuizInDb == null)
             {
                 Context.Add(quiz);
                 quizquestion.Quiz = quiz;
@@ -40,7 +40,7 @@ namespace Dal
                                .Where(t => t.Name == theme.Name)
                                .FirstOrDefault();
 
-            if(ThemeInDb == null)
+            if (ThemeInDb == null)
             {
                 Context.Add(theme);
                 theme.Questions.Add(question);
@@ -97,7 +97,7 @@ namespace Dal
 
         public List<Quiz> GetQuizs()
         {
-            return Context.Quizs.Select(q => q).ToList();
+            return Context.Quizs.ToList();
         }
 
         public List<int> GetQuestionsIdByThemeName(string themeName)
@@ -109,12 +109,29 @@ namespace Dal
             return query.ToList();
         }
 
+        public List<int> GetQuestionsIdByQuizId(string quizName)
+        {
+            var query = Context.QuizQuestions
+                       .Where(q => q.Quiz.Name == quizName)
+                       .Select(q => q.Question.QuestionId)
+                       .ToList();
+            return query;
+        }
+
         public Question GetQuestionById(int id)
         {
             return Context.Questions
                    .Include(q => q.Answers)
                    .Where(q => q.QuestionId == id)
-                   .FirstOrDefault();
+                   .SingleOrDefault();
+        }
+
+        public string GetThemeNameByQuestionId(int questionId)
+        {
+            return Context.Questions
+                   .Where(q => q.QuestionId == questionId)
+                   .Select(q => q.Theme.Name)
+                   .Single();
         }
 
         public List<Answer> GetAnswersByQuestionId(int questionId)
@@ -144,12 +161,36 @@ namespace Dal
             return true;
         }
 
-        public double GetPoint(int questionId)
+        public int GetPoint(int questionId)
         {
-            //TODO: calculate the number of good answers and the number of all answers
-            //return 100-(good_ans/all_ans)*100
+            decimal countCorrect = 0;
+            decimal countRecord = 0;
 
-            return 1.0;
+            var givedAnswers = Context.GivedAnswers
+                               .Where(g => g.QuestionId == questionId)
+                               .ToList();
+
+            var sessionIds = givedAnswers.Select(g => g.SessionId).Distinct();
+
+            foreach (var session in sessionIds)
+            {
+                List<GivedAnswer> givedAnswerList = givedAnswers.Where(g => g.SessionId == session).ToList();
+
+                if (IsItGoodAnswers(givedAnswerList))
+                {
+                    countCorrect++;
+                }
+
+                countRecord++;
+            }
+
+
+            int point = 0;
+
+            if (countRecord != 0) //0-val nem tudunk osztani
+                point = (int)(100 - Math.Floor((countCorrect / countRecord) * 100));
+
+            return point > 0 ? point : 1;
         }
 
     }

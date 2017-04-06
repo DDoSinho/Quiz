@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Dal.Model;
 using Microsoft.EntityFrameworkCore;
 using Dal.Model.Identity;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Web
 {
@@ -49,7 +50,18 @@ namespace Web
             services.AddScoped<QuestionManager>();
 
             services.AddMvc();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.CookieHttpOnly = true;
+            });
+
+            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
         }
+    
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
@@ -64,6 +76,8 @@ namespace Web
             app.UseIdentity();
 
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseStatusCodePagesWithRedirects("/Account/Login");
 
