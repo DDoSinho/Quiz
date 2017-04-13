@@ -14,5 +14,7 @@ namespace Dal.Model.Identity
         }
 
         public ICollection<Session> Sessions { get; set; }
+
+        public string PhotoUrl { get; set; }
     }
 }

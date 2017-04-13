@@ -19,11 +19,11 @@ namespace Web
 
         public Startup(IHostingEnvironment env)
         {
-
+            /*
             using (var context = new QuizDbContext())
             {
                 context.Database.EnsureCreated();
-            }
+            }*/
 
             var builder = new ConfigurationBuilder()
            .SetBasePath(env.ContentRootPath)
@@ -38,7 +38,7 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<QuizDbContext>(options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QuizDataBase;Trusted_Connection=True;"));
+            services.AddDbContext<QuizDbContext>(options =>  options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QuizDataBase;Trusted_Connection=True;"));
 
             services.AddIdentity<QuizUser, IdentityRole>(options =>
             {

@@ -8,11 +8,14 @@ using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class ProfilController : Controller
     {
         private Cloudinary Cloudinary;
@@ -36,24 +39,29 @@ namespace Web.Controllers
         {
             return View();
         }
+    
 
         [HttpPost]
-        public async Task<IActionResult> UploadProfilPicture(FileDescription files)
+        public async Task<IActionResult> UploadProfilPicture(IFormFile file)
         {
-            /*var upload = Path.Combine(_environment.WebRootPath, "uploads");
-            using (var stream = new FileStream(Path.Combine(upload, files.FileName), FileMode.Create))
-            {
-                await files.CopyToAsync(stream);
+            string uri = " ";
 
-                var uploadParams = new ImageUploadParams()
+                if (file.Length > 0)
                 {
-                    File = new FileDescription(files.FileName, stream)
-                };
-                var uploadResult = await Cloudinary.UploadAsync(uploadParams);
-                Console.WriteLine();
-            }*/
+                    var uploadResult = await Cloudinary.UploadAsync(new ImageUploadParams()
+                    {
+                        File = new FileDescription(file.FileName, file.OpenReadStream())
+                    });
 
-            return View();
+                var metadata = uploadResult.Metadata;
+                foreach (var item in metadata)
+                {
+                    uri= uri+item.Value+" ";
+                }
+
+                }
+
+            return Ok(uri+"asd");
         }
 
     }
