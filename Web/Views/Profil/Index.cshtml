@@ -1,5 +1,15 @@
 ﻿<h1>Profil</h1>
 <form method="post" asp-action="UploadProfilPicture" asp-controller="Profil" enctype="multipart/form-data">
-    <input type="file" name="file"/>
-    <input type="submit" value="Upload"/>
+    <input type="file" name="file" />
+    <input type="submit" value="Upload" />
 </form>
+@{
+    if (Model != null)
+    {
+        <img src="@Model" alt="no picture found" />
+    }
+    else
+    {
+        <img src="http://res.cloudinary.com/dlqdldxbw/image/upload/v1492416210/ehz5nnevf9nc7ajgnvsp.gif" />
+    }
+}

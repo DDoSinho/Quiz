@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Dal.Entities;
 using Dal.Model;
 using Web.Entities;
+using Dal.Model.Identity;
 
 namespace Dal
 {
@@ -193,5 +194,10 @@ namespace Dal
             return point > 0 ? point : 1;
         }
 
+        public void SetPhotoUrl(QuizUser user, string url)
+        {
+            user.PhotoUrl = url;
+            Context.SaveChanges();
+        }
     }
 }

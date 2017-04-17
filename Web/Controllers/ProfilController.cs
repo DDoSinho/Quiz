@@ -10,6 +10,9 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Dal.Model.Identity;
+using Dal;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,11 +22,13 @@ namespace Web.Controllers
     public class ProfilController : Controller
     {
         private Cloudinary Cloudinary;
-        private IHostingEnvironment _environment;
+        private UserManager<QuizUser> _userManager;
+        private QuestionManager _questionManager;
 
-        public ProfilController(IHostingEnvironment environment)
+        public ProfilController(UserManager<QuizUser> userManager, QuestionManager questionManager)
         {
-            _environment = environment;
+            _userManager = userManager;
+            _questionManager = questionManager;
 
             Account cloudinaryAccount = new Account(
                 "dlqdldxbw",
@@ -37,31 +42,35 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return View("Index",_userManager.Users.Where(u => u.UserName == User.Identity.Name).Single().PhotoUrl);
         }
-    
 
         [HttpPost]
         public async Task<IActionResult> UploadProfilPicture(IFormFile file)
         {
-            string uri = " ";
+            if (file.Length > 0)
+            {
+                Transformation transform = new Transformation();
+                transform.Height(300);
+                transform.Width(200);
 
-                if (file.Length > 0)
+                var uploadResult = await Cloudinary.UploadAsync(new ImageUploadParams()
                 {
-                    var uploadResult = await Cloudinary.UploadAsync(new ImageUploadParams()
-                    {
-                        File = new FileDescription(file.FileName, file.OpenReadStream())
-                    });
+                    File = new FileDescription(file.FileName, file.OpenReadStream()),
+                    Transformation= transform
+                });
 
-                var metadata = uploadResult.Metadata;
-                foreach (var item in metadata)
-                {
-                    uri= uri+item.Value+" ";
-                }
+                string uri = uploadResult.SecureUri.AbsoluteUri;
 
-                }
+                var user =  _userManager.Users.Where(u => u.UserName== User.Identity.Name).Single();
+                user.PhotoUrl = uri;
 
-            return Ok(uri+"asd");
+                _questionManager.SetPhotoUrl(user, uri);
+
+                return View("Index", uri);
+            }
+
+            return View("Index");
         }
 
     }
