@@ -39,6 +39,8 @@ namespace Web.Migrations
                     b.Property<int>("GivedAnswerId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("AnswerDate");
+
                     b.Property<int?>("AnswerId");
 
                     b.Property<bool>("Correct");
@@ -74,6 +76,8 @@ namespace Web.Migrations
                 {
                     b.Property<int>("SessionId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Point");
 
                     b.Property<int?>("QuizID");
 

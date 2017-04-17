@@ -14,8 +14,6 @@ using Microsoft.AspNetCore.Identity;
 using Dal.Model.Identity;
 using Dal;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Web.Controllers
 {
     [Authorize]
@@ -40,9 +38,9 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View("Index",_userManager.Users.Where(u => u.UserName == User.Identity.Name).Single().PhotoUrl);
+            return View("Index", (await _userManager.GetUserAsync(User)).PhotoUrl);
         }
 
         [HttpPost]
@@ -62,7 +60,7 @@ namespace Web.Controllers
 
                 string uri = uploadResult.SecureUri.AbsoluteUri;
 
-                var user =  _userManager.Users.Where(u => u.UserName== User.Identity.Name).Single();
+                var user = await _userManager.GetUserAsync(User);
                 user.PhotoUrl = uri;
 
                 _questionManager.SetPhotoUrl(user, uri);

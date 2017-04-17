@@ -19,12 +19,6 @@ namespace Web
 
         public Startup(IHostingEnvironment env)
         {
-            /*
-            using (var context = new QuizDbContext())
-            {
-                context.Database.EnsureCreated();
-            }*/
-
             var builder = new ConfigurationBuilder()
            .SetBasePath(env.ContentRootPath)
            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)

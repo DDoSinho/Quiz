@@ -199,5 +199,21 @@ namespace Dal
             user.PhotoUrl = url;
             Context.SaveChanges();
         }
+
+        public Quiz GetQuizByName(string quizName)
+        {
+            return Context.Quizs.Where(q => q.Name == quizName).First();
+        }
+
+        public void AddPoint(Session session,int point)
+        {
+            session.Point = point;
+            Context.SaveChanges();
+        }
+
+        public Session GetSessionById(int id)
+        {
+            return Context.Sessions.Where(s => s.SessionId == id).Single();
+        }
     }
 }

@@ -1,28 +1,44 @@
 ﻿@model Dal.Model.LoginViewModel
 
-<form asp-controller="Account" asp-action="Login" method="post">
-    <h4>Login</h4>
-    <div asp-validation-summary="All"></div>
-    <div>
-        <label asp-for="Email"></label>
-        <div>
-            <input asp-for="Email">
-            <span asp-validation-for="Email"></span>
-        </div>
-    </div>
-    <div>
-        <label asp-for="Password"></label>
-        <div>
-            <input asp-for="Password"/>
-            <span asp-validation-for="Password"></span>
-        </div>
-    </div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-    <div>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/login.css" rel="stylesheet" />
+
+</head>
+<body>
+<div class="container">
+
+    <form class="form-signin" asp-controller="Account" asp-action="Login" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <div asp-validation-summary="All"></div>
+
         <div>
-            <button type="submit">Login</button>
+            <label asp-for="Email" class="sr-only">Email address</label>
+            <div>
+                <input asp-for="Email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                <span asp-validation-for="Email"></span>
+            </div>
         </div>
-    </div>
-</form>
-<p></p>
-<a href="/Account/Register">Register</a>
+
+        <div>
+            <label asp-for="Password" class="sr-only">Password</label>
+            <div>
+                <input asp-for="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <span asp-validation-for="Password"></span>
+            </div>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        <a class="btn-link" href="/Account/Register">Registration</a>
+    </form>
+
+</div> 
+</body>

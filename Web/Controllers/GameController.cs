@@ -38,7 +38,11 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<IActionResult> InitGame([FromForm] Quiz quiz)
         {
-            Session session = new Session() { QuizUser = await _userManager.GetUserAsync(User) };
+            Session session = new Session()
+            {
+                QuizUser = await _userManager.GetUserAsync(User),
+                Quiz=_questionManager.GetQuizByName(quiz.Name)
+            };
             _questionManager.AddSession(session);
             HttpContext.Session.SetInt32(SessionKeySession, session.SessionId);
 
@@ -114,6 +118,12 @@ namespace Web.Controllers
             if (sessissonKeyIds == null || sessissonKeyIds.Equals(""))
             {
                 ViewData["point"] = vmodel.Points;
+
+                _questionManager.AddPoint(
+                    _questionManager.GetSessionById(HttpContext.Session.GetInt32(SessionKeySession) ?? 0),
+                    vmodel.Points
+                );
+
                 return View("EndQuiz");
             }
 

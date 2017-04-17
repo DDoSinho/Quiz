@@ -23,5 +23,7 @@ namespace Dal.Entities
         public virtual Answer Answer { get; set; }
 
         public virtual Session Session { get; set; }
+
+        public DateTime AnswerDate { get; set; } = DateTime.Now;
     }
 }

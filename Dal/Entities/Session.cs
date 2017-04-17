@@ -22,5 +22,7 @@ namespace Dal.Entities
 
         public virtual Quiz Quiz { get; set; }
 
+        public int Point { get; set; }
+
     }
 }
