@@ -1,37 +1,49 @@
 ﻿@using Dal.Model;
 @model AddQuestionViewModel
 
-<form method="post" action="/AddQuestion/SaveQuestion">
-    Quiz:
-    <input list="quizlist" name="quiz.Name" placeholder="Write or choose a name of quiz" required>
+@{
+    Layout = "_MenuLayout";
+}
 
-    <datalist id="quizlist">
-        @{
-            foreach (var item in Model.Quizs)
-            {
-                <option value="@item.Name" />
+<link href="~/css/addquestion.css" rel="stylesheet" />
+
+<div id="body">
+
+    <h1 class="cover-heading">Edit Questions</h1>
+    
+    <form method="post" action="/AddQuestion/SaveQuestion" class="form-group">
+        <p>
+            <label class=".lb-lg" for="quizlist">Quiz:</label>
+            <input list="quizlist" class="form-control" name="quiz.Name" placeholder="Write or choose a name of quiz" id="quiz" required>
+        </p>
+        <datalist id="quizlist">
+            @{
+                foreach (var item in Model.Quizs)
+                {
+                    <option value="@item.Name" />
+                }
             }
-        }
-    </datalist>
+        </datalist>
 
-    <p>
-        Question:
-        <input type="text" name="question.Text" placeholder="Question text" required />
-    </p>
+        <p>
+            <label for="question">Question:</label>
+            <input type="text" class="form-control" name="question.Text" placeholder="Question text" id="question" required />
+        </p>
 
-    <p>
-        Theme:
-        <input list="themelist" name="theme.Name" placeholder="Write or choose a theme" required>
-    </p>
+        <p>
+            <label for="theme">Theme:</label>
+            <input list="themelist" class="form-control" name="theme.Name" placeholder="Write or choose a theme" id="theme" required>
+        </p>
 
-    <datalist id="themelist">
-        @{
-            foreach (var item in Model.Themes)
-            {
-                <option value="@item.Name" />
+        <datalist id="themelist">
+            @{
+                foreach (var item in Model.Themes)
+                {
+                    <option value="@item.Name" />
+                }
             }
-        }
-    </datalist>
+        </datalist>
 
-    <p><button>Add Question</button></p>
-</form>
+        <p><button class="btn btn-lg btn-default">Add Question</button></p>
+    </form>
+</div>

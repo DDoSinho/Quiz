@@ -14,10 +14,19 @@ using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Created()
+        {
+            return View();
+        }
+
+        public IActionResult Menu()
         {
             return View();
         }

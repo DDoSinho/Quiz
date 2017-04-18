@@ -1,77 +1,24 @@
-﻿
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+﻿@{
+    Layout = "_CoverLayout";
+}
+<div class="inner cover">
+    <h1 class="cover-heading">Welcome to the Quiz Manager!</h1>
+    <p class="lead">On this website you can create quizes, and answer the questions. You can watch statistics. Your first step is login, or registration.</p>
+    <p class="lead">Come back later for more feature!</p>
+    <h1 class="cover-heading" style="margin-bottom: 50px">Good Luck and Have Fun!</h1>
+</div>
 
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/css/cover.css" rel="stylesheet" />
-</head>
-<body>
-
-    <div class="site-wrapper">
-
-        <div class="site-wrapper-inner">
-
-            <div class="cover-container">
-
-                <div class="masthead clearfix">
-                    <div class="inner">
-                        <h3 class="masthead-brand">Quiz Manager</h3>
-                        <nav>
-                            <ul class="nav masthead-nav">
-                                <li><a href="/Home/Index">Home</a></li>
-                                <li><a href="/Account/Login">Login</a></li>
-                                <li><a href="/Account/Register">Registration</a></li>
-                                <li><a href="/Home/Created">Created By</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-
-                <div class="inner cover">
-                    <h1 class="cover-heading">Cover your page.</h1>
-                    <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-                    <p class="lead">
-                        <a href="#" class="btn btn-lg btn-default">Learn more</a>
-                    </p>
-                </div>
-
-                <div class="mastfoot">
-                    <div class="inner">
-                        <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo"></a>.</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <p class="lead">
+            <a href="/Home/Menu" class="btn btn-lg btn-default">Let's play!</a>
+        </p>
+    }
+}
+<div class="mastfoot">
+    <div class="inner">
+        <p>Special thanks to <a href="http://getbootstrap.com">Bootstrap</a>!</p>
     </div>
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-</body>
-
-
-
-
-<!--
-<h1>Menu</h1>
-<p>
-    <a href="/Game/ChooseQuiz">Play Game</a>
-</p>
-<p>
-    <a href="/AddQuestion/Index">Add Questions</a>
-</p>
-<p>
-    <a href="/Account/Logout">Logout</a>
-</p>
-<p>
-    <a href="/Profil/Index">Profil</a>
-</p>
--->

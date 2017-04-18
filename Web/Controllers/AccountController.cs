@@ -56,10 +56,6 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if(User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Home");
-            }
             return View();
         }
 
@@ -68,7 +64,7 @@ namespace Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
                 if(result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
@@ -94,8 +90,9 @@ namespace Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return Redirect("~/");
+            return RedirectToAction("Index", "Home");
         }
+    
 
         public IActionResult Index()
         {

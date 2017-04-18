@@ -49,8 +49,8 @@ namespace Web.Controllers
             if (file.Length > 0)
             {
                 Transformation transform = new Transformation();
-                transform.Height(300);
-                transform.Width(200);
+                transform.Height(400);
+                transform.Width(400);
 
                 var uploadResult = await Cloudinary.UploadAsync(new ImageUploadParams()
                 {

@@ -1,44 +1,36 @@
 ﻿@model Dal.Model.LoginViewModel
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
 
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/css/login.css" rel="stylesheet" />
+@{
+    Layout = "_CoverLayout";
+}
+<link href="~/css/login.css" rel="stylesheet" />
 
-</head>
 <body>
-<div class="container">
+    <div class="container" style="width:700px;">
 
-    <form class="form-signin" asp-controller="Account" asp-action="Login" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <div asp-validation-summary="All"></div>
+        <form class="form-signin" asp-controller="Account" asp-action="Login" method="post">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <div asp-validation-summary="All"></div>
 
-        <div>
-            <label asp-for="Email" class="sr-only">Email address</label>
             <div>
-                <input asp-for="Email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                <span asp-validation-for="Email"></span>
+                <label asp-for="Email" class="sr-only">Email address</label>
+                <div>
+                    <input asp-for="Email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                    <span asp-validation-for="Email"></span>
+                </div>
             </div>
-        </div>
 
-        <div>
-            <label asp-for="Password" class="sr-only">Password</label>
             <div>
-                <input asp-for="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                <span asp-validation-for="Password"></span>
+                <label asp-for="Password" class="sr-only">Password</label>
+                <div>
+                    <input asp-for="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <span asp-validation-for="Password"></span>
+                </div>
             </div>
-        </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-default" style="margin-top: 20px" type="submit">Sign in</button>
+        </form>
 
-        <a class="btn-link" href="/Account/Register">Registration</a>
-    </form>
-
-</div> 
+    </div>
 </body>

@@ -1,20 +1,13 @@
 ﻿@model Dal.Model.Identity.RegisterViewModel
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/css/login.css" rel="stylesheet" />
-</head>
+@{
+    Layout = "_CoverLayout";
+}
+
+<link href="~/css/login.css" rel="stylesheet" />
 
 <body>
-    <div class="container">
+    <div class="container" style="width:700px;">
 
         <form class="form-signin" asp-controller="Account" asp-action="Register" method="post">
             <h2 class="form-signin-heading">Registration</h2>
@@ -43,12 +36,12 @@
             <div class="checkbox">
                 <label asp-for="Administrator">
                     <input type="checkbox" asp-for="Administrator" />
+                    Administrator
                 </label>
-               
+
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+            <button class="btn btn-lg btn-default" type="submit">Register</button>
         </form>
 
     </div>
 </body>
-</html>

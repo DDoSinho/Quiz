@@ -1,0 +1,15 @@
+﻿.form-control {
+    width: 300px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+label{
+    font-size:large;
+}
+
+#body {
+    margin: 20px;
+}
