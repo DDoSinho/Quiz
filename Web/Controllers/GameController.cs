@@ -44,6 +44,8 @@ namespace Web.Controllers
                 Quiz=_questionManager.GetQuizByName(quiz.Name)
             };
             _questionManager.AddSession(session);
+
+            int iiiiid = session.SessionId;
             HttpContext.Session.SetInt32(SessionKeySession, session.SessionId);
 
             List<int> questionIds = _questionManager.GetQuestionsIdByQuizId(quiz.Name);
@@ -118,6 +120,8 @@ namespace Web.Controllers
             if (sessissonKeyIds == null || sessissonKeyIds.Equals(""))
             {
                 ViewData["point"] = vmodel.Points;
+
+                int? sessionsss = HttpContext.Session.GetInt32(SessionKeySession);
 
                 _questionManager.AddPoint(
                     _questionManager.GetSessionById(HttpContext.Session.GetInt32(SessionKeySession) ?? 0),

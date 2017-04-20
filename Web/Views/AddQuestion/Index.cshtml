@@ -9,11 +9,11 @@
 
 <div id="body">
 
-    <h1 class="cover-heading">Edit Questions</h1>
+    <h1 class="cover-heading" style="color: #fff">Edit Questions</h1>
     
     <form method="post" action="/AddQuestion/SaveQuestion" class="form-group">
         <p>
-            <label class=".lb-lg" for="quizlist">Quiz:</label>
+            <label class=".lb-lg" for="quizlist" style="color: #fff">Quiz:</label>
             <input list="quizlist" class="form-control" name="quiz.Name" placeholder="Write or choose a name of quiz" id="quiz" required>
         </p>
         <datalist id="quizlist">
@@ -26,12 +26,12 @@
         </datalist>
 
         <p>
-            <label for="question">Question:</label>
+            <label for="question" style="color: #fff">Question:</label>
             <input type="text" class="form-control" name="question.Text" placeholder="Question text" id="question" required />
         </p>
 
         <p>
-            <label for="theme">Theme:</label>
+            <label for="theme" style="color: #fff">Theme:</label>
             <input list="themelist" class="form-control" name="theme.Name" placeholder="Write or choose a theme" id="theme" required>
         </p>
 
@@ -44,6 +44,6 @@
             }
         </datalist>
 
-        <p><button class="btn btn-lg btn-default">Add Question</button></p>
+        <p><button class="btn btn-lg btn-default" style="margin-top: 10px; color: #333; background-color: #fff">Add Question</button></p>
     </form>
 </div>

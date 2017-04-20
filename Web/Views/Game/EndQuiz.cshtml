@@ -1,7 +1,12 @@
 ﻿@using Dal.Entities
 
-<h1>End Quiz</h1>
 
-<a href="/Home/Index">Back to Menu</a>
+@{
+    Layout = "_MenuLayout";
+}
 
-<h1>Points: @ViewData["point"]</h1>
+<h1 style="color: #fff">End Quiz</h1>
+
+<a href="/Home/Menu">Back to Menu</a>
+
+<h1 style="color: #fff">Points: @ViewData["point"]</h1>

@@ -1,15 +1,28 @@
 ﻿@using Dal.Entities;
 @model List<Quiz>
-<form method="post" action="/Game/InitGame" id="form">
 
-    Choose a Quiz:
-    <select name="Name">
-        @{
-            foreach (var item in Model)
-            {
-                <option value="@item.Name">@item.Name</option>
+@{
+    Layout = "_MenuLayout";
+}
+
+<link href="~/css/addquestion.css" rel="stylesheet" />
+
+<div id="body">
+
+    <h1 class="cover-heading" style="color: #fff">Play Game</h1>
+
+    <form method="post" action="/Game/InitGame" id="form" class="form-group">
+        <p>
+            <label class=".lb-lg" for="quizlist" style="color: #fff">Choose a Quiz:</label>
+        </p>
+        <select class="form-control" name="Name" id="quizlist">
+            @{
+                foreach (var item in Model)
+                {
+                    <option value="@item.Name">@item.Name</option>
+                }
             }
-        }
-    </select>
-    <p><button type="submit">Start Game</button></p>
-</form>
+        </select>
+        <p><button class="btn btn-lg btn-default" style="margin-top: 20px; color: #333; background-color: #fff">Start Game</button></p>
+    </form>
+</div>

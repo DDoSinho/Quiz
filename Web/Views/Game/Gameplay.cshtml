@@ -1,24 +1,36 @@
 ﻿@using Dal.Model;
 @model GameplayViewModel
 
-<body>
+@{
+    Layout = "_MenuLayout";
+}
+
+<link href="~/css/addquestion.css" rel="stylesheet" />
+
+<div id="body">
     <form method="post" action="/Game/Gameplay">
         @{
-            <h1>Quiz: @ViewData["quiz"]</h1>
-            <h2>Theme: @ViewData["theme"]</h2>
+            <h1 style="color: #fff">@ViewData["quiz"]</h1>
+            <h2 style="color: #fff">Theme: @ViewData["theme"]</h2>
 
             int id = 0;
 
-            <h3>@Model.Question.Text</h3>
+            <h3 style="color: #fff">@Model.Question.Text</h3>
             foreach (var item in Model.Question.Answers)
             {
-                <p>
-                    <input type="checkbox" class="checkbox" value="true" id="@id" name="givedAnswerList[@id].Correct" />
-                    <label for="@id">@item.Text</label>
-                </p>
+                <div class="row" style="margin-bottom: 5px">
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" class="checkbox" value="true" id="@id" name="givedAnswerList[@id].Correct" />
+                            </span>
+                            <label for="@id" class="form-control">@item.Text</label>
+                        </div>
+                    </div>
+                </div>
                 <input type="text" value="@Model.Question.QuestionId" name="givedAnswerList[@id].QuestionId" hidden />
                 <input type="text" value="@item.AnswerId" name="givedAnswerList[@id].AnswerId" hidden />
-                <input type="text" value="@Model.SessionId" name="givedAnswerList[@id].SessionId" hidden />
+                    <input type="text" value="@Model.SessionId" name="givedAnswerList[@id].SessionId" hidden />
 
                 id++;
             }
@@ -26,12 +38,12 @@
             <input type="text" value="@Model.Question.QuestionId" name="questionId" hidden />
         }
         <div id="nextquestiondiv">
-            <button id="nextquestionbutton" type="submit">Next question</button>
+            <button id="nextquestionbutton" class="btn btn-lg btn-default" type="submit" style="margin-top: 20px; color: #333; background-color: #fff">Next question</button>
         </div>
-        <h1>Points: @Model.Points</h1>
+        <h1 style="color:#fff">Points: @Model.Points</h1>
     </form>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/question.js"></script>
 
-</body>
+</div>

@@ -64,7 +64,7 @@ namespace Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
                 if(result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
@@ -77,13 +77,6 @@ namespace Web.Controllers
             }
             return View();
         }
-
-        //legnehezebb kérdés
-        //legkönnyebb kérdés
-        //trend
-        //leggyakrabban használt kategória
-        //legnehezebb legkönnyebb kategória
-        //top score
 
         [HttpGet]
         [Authorize]

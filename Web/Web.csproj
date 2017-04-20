@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\addquestion.css" />
     <Content Include="wwwroot\css\addquestion.css" />
     <Content Include="wwwroot\css\cover.css" />
     <Content Include="wwwroot\css\login.css" />
     <Content Include="wwwroot\css\menu.css" />
     <Content Include="wwwroot\css\profil.css" />
     <Content Include="wwwroot\css\style.css" />
+    <Content Include="wwwroot\css\table.css" />
     <Content Include="wwwroot\js\answer.js" />
     <Content Include="wwwroot\js\answer2.js" />
     <Content Include="wwwroot\js\question.js" />

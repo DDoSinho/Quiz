@@ -1,0 +1,56 @@
+﻿@model Dal.Model.StatisticViewModel
+
+@{
+    Layout = "_MenuLayout";
+}
+
+<link href="~/css/table.css" rel="stylesheet" />
+<div style="margin: 20px;">
+    <h1 style="color: #fff">Statistics</h1>
+    <h2 style="color: #fff">Personal Statistics:</h2>
+    <table class="table table-condensed" style="width: 50%">
+        <thead>
+            <tr>
+                <th>Quiz Name</th>
+                <th>Top Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var row in @Model.TopScore)
+                {
+                    <tr>
+                        <td>@row.Key</td>
+                        <td>@row.Value</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <h2 style="color: #fff">Global Statistics:</h2>
+    <table class="table table-condensed" style="width: 50%">
+        <thead>
+            <tr>
+                <th>Quiz Name</th>
+                <th>Top Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var row in @Model.AllTopScore)
+                {
+                    <tr>
+                        <td>@row.Key</td>
+                        <td>@row.Value</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <h4 style="color:#fff">Hardest Question: @Model.HardestAndEasiestQuestion.Key</h4>
+    <h4 style="color:#fff">Easiest Question: @Model.HardestAndEasiestQuestion.Value</h4>
+    <h4 style="color:#fff">Most Popular Quiz: @Model.MostPoplularQuiz</h4>
+
+</div>

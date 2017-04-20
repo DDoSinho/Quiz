@@ -73,7 +73,7 @@ namespace Web
 
             app.UseSession();
 
-            app.UseStatusCodePagesWithRedirects("/Account/Login");
+            app.UseStatusCodePagesWithRedirects("/Home/Login");
 
             app.UseMvc(routes =>
             {

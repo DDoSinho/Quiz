@@ -5,23 +5,36 @@
     Layout = "_MenuLayout";
 }
 
-    <h1 class="cover-heading">Edit Questions</h1>
+
+<link href="~/css/addquestion.css" rel="stylesheet" />
+    
+<div id="body">
+    <h1 class="cover-heading" style="color: #fff">Edit Questions</h1>
     @{
-        <h2>@Model.Text</h2>
+        <h2 style="color: #fff">@Model.Text</h2>
     }
 
-<div id="body">
     <form id="form" method="post" action="SaveAnswers" class="form-group">
-        <div id="firstanswer">
-            <input type="text" placeholder="Answer text" name="Answer[0].Text" required />
-            <input type="checkbox" class="checkbox" value="true" name="Answer[0].IsGoodAnswer" style="margin-left:0; margin-right:-1px" />
-            <button type="button" class="btn btn-lg btn-default" id="remove">Remove</button>
-            <input type="text" value="@Model.QuestionId" name="Answer[0].QuestionId" hidden="hidden" id="questionid" />
+        <div id="firstanswer" style="margin-top: 5px">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input type="checkbox" class="checkbox" value="true" name="Answer[0].IsGoodAnswer" aria-label="...">
+                        </span>
+                        <input type="text" class="form-control" placeholder="Answer text" name="Answer[0].Text" aria-label="..." style="width:200px;" >
+                        <button type="button" class="btn btn-lg btn-default" id="remove" style="padding: 4px 16px; margin-left: 10px;  color: #fff; background-color: #333">Remove</button>
+                    </div>
+                </div>
+            </div>
+            
+            <input type="text" value="@Model.QuestionId" name="Answer[0].QuestionId" hidden="hidden" id="questionid" required/>
         </div>
-        <p><button type="button" class="btn btn-lg btn-default" id="add">Add New Answer</button></p>
-        <p><div id="submitdiv"><button type="submit" class="btn btn-lg btn-default" id="addanswersbutton">Add Answers</button></div></p>
+        <p><button type="button" class="btn btn-lg btn-default" id="add" style="margin-top: 10px; color: #fff; background-color: #333">Add New Answer</button></p>
+        <p><div id="submitdiv"><button type="submit" class="btn btn-lg btn-default" id="addanswersbutton" style="margin-top: 20px;">Add Answers</button></div></p>
     </form>
-
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/answer.js?@(Web.Startup.TimeStamp)"></script>
+       
 </div>

@@ -205,7 +205,7 @@ namespace Dal
             return Context.Quizs.Where(q => q.Name == quizName).First();
         }
 
-        public void AddPoint(Session session,int point)
+        public void AddPoint(Session session, int point)
         {
             session.Point = point;
             Context.SaveChanges();
@@ -214,6 +214,77 @@ namespace Dal
         public Session GetSessionById(int id)
         {
             return Context.Sessions.Where(s => s.SessionId == id).Single();
+        }
+
+        public Dictionary<string, int> GetAllTopScore()
+        {
+            return (from s in Context.Sessions
+                    group s by s.Quiz into q
+                    select new { Name = q.Key.Name, Point = q.Max(m => m.Point) })
+                   .ToDictionary(t => t.Name, t => t.Point);
+
+        }
+
+        public Dictionary<string, int> GetTopScore(string userId)
+        {
+            return (from s in Context.Sessions
+                    where s.QuizUser.Equals(userId)
+                    group s by s.Quiz into q
+                    select new { Name = q.Key.Name, Point = q.Max(m => m.Point) })
+                   .ToDictionary(t => t.Name, t => t.Point);
+
+        }
+
+        public string GetMostPopularQuizName()
+        {
+            var query = (from s in Context.Sessions
+                         group s by s.Quiz into q
+                         select new { Name = q.Key.Name, Count = q.Count() })
+                         .ToList();
+
+            int max = query.Select(q => q.Count).Max();
+
+            return query.Where(q => q.Count == max).Single().Name;
+        }
+
+        private double GetDifficulty(int questionId)
+        {
+            double countCorrect = 0;
+            double countRecord = 0;
+
+            var givedAnswers = Context.GivedAnswers
+                               .Where(g => g.QuestionId == questionId)
+                               .ToList();
+
+            var sessionIds = givedAnswers.Select(g => g.SessionId).Distinct();
+
+            foreach (var session in sessionIds)
+            {
+                List<GivedAnswer> givedAnswerList = givedAnswers.Where(g => g.SessionId == session).ToList();
+
+                if (IsItGoodAnswers(givedAnswerList))
+                {
+                    countCorrect++;
+                }
+
+                countRecord++;
+            }
+
+            return countRecord != 0 ? countCorrect / countRecord : 0.0;
+        }
+
+        public KeyValuePair<string,string> GetHardestAndEasiestQuestion()
+        {
+            Dictionary<string, double> questionIdPointPairs = new Dictionary<string, double>();
+
+            foreach (var question in Context.Questions.ToList())
+            {
+                questionIdPointPairs.Add(question.Text, GetDifficulty(question.QuestionId));
+            }
+
+
+             var asd =   new KeyValuePair<string, string>(questionIdPointPairs.OrderByDescending(item => item.Value).Last().Key, questionIdPointPairs.OrderByDescending(item => item.Value).First().Key);
+            return asd;
         }
     }
 }

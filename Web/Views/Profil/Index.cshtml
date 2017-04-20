@@ -5,14 +5,14 @@
 <link href="~/css/profil.css" rel="stylesheet" />
 
 <div id="profil">
-    <h1 class="cover-heading">Profil</h1>
-    <h3 class="cover-heading">Name: @User.Identity.Name</h3>
+    <h1 class="cover-heading" style="color: #fff">Profil</h1>
+    <h3 class="cover-heading" style="color: #fff">Name: @User.Identity.Name</h3>
 
     <form method="post" asp-action="UploadProfilPicture" asp-controller="Profil" enctype="multipart/form-data">
         <label class="btn btn-default btn-file">
             <input type="file" name="file" required/>
         </label>
-        <input type="submit" class="btn btn-lg btn-default" value="Upload" />
+        <input type="submit" class="btn btn-lg btn-default" value="Upload" style="padding: 6px 16px; color: #fff; background-color: #333"/>
     </form>
     @{
         if (Model != null)
