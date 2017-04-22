@@ -10,6 +10,7 @@ using Dal.Model;
 using Microsoft.EntityFrameworkCore;
 using Dal.Model.Identity;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Web.Services;
 
 namespace Web
 {
@@ -42,6 +43,7 @@ namespace Web
 
             services.AddScoped<QuizDbContext>();
             services.AddScoped<QuestionManager>();
+            services.AddTransient<IQuizService, QuizService>();
 
             services.AddMvc();
 
@@ -49,7 +51,7 @@ namespace Web
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromSeconds(10000);
                 options.CookieHttpOnly = true;
             });
 

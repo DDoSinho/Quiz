@@ -273,7 +273,7 @@ namespace Dal
             return countRecord != 0 ? countCorrect / countRecord : 0.0;
         }
 
-        public KeyValuePair<string,string> GetHardestAndEasiestQuestion()
+        public KeyValuePair<string, string> GetHardestAndEasiestQuestion()
         {
             Dictionary<string, double> questionIdPointPairs = new Dictionary<string, double>();
 
@@ -282,9 +282,7 @@ namespace Dal
                 questionIdPointPairs.Add(question.Text, GetDifficulty(question.QuestionId));
             }
 
-
-             var asd =   new KeyValuePair<string, string>(questionIdPointPairs.OrderByDescending(item => item.Value).Last().Key, questionIdPointPairs.OrderByDescending(item => item.Value).First().Key);
-            return asd;
+            return new KeyValuePair<string, string>(questionIdPointPairs.OrderByDescending(item => item.Value).Last().Key, questionIdPointPairs.OrderByDescending(item => item.Value).First().Key);
         }
     }
 }
